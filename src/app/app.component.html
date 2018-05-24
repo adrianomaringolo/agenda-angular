@@ -5,11 +5,25 @@
   <p>Construído para o Open Source Day Bootcamp.</p>
 </div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-5">
 
-<ul class="list-group">
-  <li class="list-group-item">Cras justo odio</li>
-  <li class="list-group-item">Dapibus ac facilisis in</li>
-  <li class="list-group-item">Morbi leo risus</li>
-  <li class="list-group-item">Porta ac consectetur ac</li>
-  <li class="list-group-item">Vestibulum at eros</li>
-</ul>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let turma of turmas">
+          <h4>{{turma.nome}}</h4>
+          <ul>
+            <li>Professor: {{turma.professor.nome}}</li>
+            <li>Curso: {{turma.curso.nome}}</li>
+            <li>Local: {{turma.local}}</li>
+            <li>Duração: início em {{turma.dataInicio | date:'dd/MM/yyyy'}} ({{turma.curso.cargaHorariaHoras}} horas)</li>
+          </ul>
+          <hr class="my-4">
+          <button type="button" class="btn btn-danger btn-sm btn-block" (click)="deleteTurma(turma)">Excluir</button>
+
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
