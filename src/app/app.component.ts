@@ -13,7 +13,7 @@ export class AppComponent {
   cursos: any[];
 
   novaTurma: any = {};
-  cardTitle: string = 'Nova Turma';
+  cardTitle: string = 'Nova turma';
 
   constructor(private _agendaService: AgendaService) {
     this.findTurmas();
@@ -53,6 +53,7 @@ export class AppComponent {
         }
       );
     }
+    this.cardTitle = 'Nova turma';
 
   }
 
@@ -63,6 +64,11 @@ export class AppComponent {
         this.findTurmas();
       }
     );
+  }
+
+  public cancelOperation(): void {
+    this.novaTurma = {};
+    this.cardTitle = 'Nova turma';
   }
 
   public editTurma(turma): void {
@@ -78,7 +84,6 @@ export class AppComponent {
       cursoId: turma.cursoId,
       professorId: turma.professorId
     };
-    console.log(this.novaTurma);
     this.cardTitle = 'Editar Turma - ' + turma.nome;
   }
 
