@@ -15,8 +15,12 @@ export class AgendaService {
     return this._httpClient.get(this._restApiURL + 'Turmas');
   }
 
-  public postTurma(item: any): Observable<any> {
+  public addTurma(item: any): Observable<any> {
     return this._httpClient.post(this._restApiURL + 'Turmas', item);
+  }
+
+  public updateTurma(item: any): Observable<any> {
+    return this._httpClient.put(this._restApiURL + 'Turmas', item);
   }
 
   public deleteTurma(item: any): Observable<any> {

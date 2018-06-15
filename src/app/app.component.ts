@@ -12,6 +12,8 @@ export class AppComponent {
   professores: any[];
   cursos: any[];
 
+  novaTurma: any = {};
+
   constructor(private _agendaService: AgendaService) {
     this.findTurmas();
     this.findCursos();
@@ -26,7 +28,19 @@ export class AppComponent {
     );
   }
 
-  private deleteTurma(turma): void {
+  public onSubmit(form): void {
+    console.log(this.novaTurma);
+
+    this._agendaService.addTurma(form.value).subscribe(
+      res => {
+        alert(`Turma "${form.value.nome}" adicionada com sucesso`);
+        this.novaTurma = {};
+        this.findTurmas();
+      }
+    );
+  }
+
+  public deleteTurma(turma): void {
     this._agendaService.deleteTurma(turma).subscribe(
       res => {
         alert(`Turma "${turma.nome}" removida com sucesso`);
