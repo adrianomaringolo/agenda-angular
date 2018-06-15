@@ -13,6 +13,7 @@ export class AppComponent {
   cursos: any[];
 
   novaTurma: any = {};
+  cardTitle: string = 'Nova Turma';
 
   constructor(private _agendaService: AgendaService) {
     this.findTurmas();
@@ -29,15 +30,30 @@ export class AppComponent {
   }
 
   public onSubmit(form): void {
-    console.log(this.novaTurma);
 
-    this._agendaService.addTurma(form.value).subscribe(
-      res => {
-        alert(`Turma "${form.value.nome}" adicionada com sucesso`);
-        this.novaTurma = {};
-        this.findTurmas();
-      }
-    );
+    // o form está sendo recebido como parâmetro para demonstrar como é possível obter os valores do formulário
+    // também dessa forma, mas aqui vamos usar o atributo local novaTurma
+    console.log(form.value);
+
+    // se já existe um id significa que é uma edição de item
+    if (!this.novaTurma.id) {
+      this._agendaService.addTurma(form.value).subscribe(
+        res => {
+          alert(`Turma "${form.value.nome}" adicionada com sucesso`);
+          this.novaTurma = {};
+          this.findTurmas();
+        }
+      );
+    } else {
+      this._agendaService.updateTurma(this.novaTurma).subscribe(
+        res => {
+          alert(`Turma "${form.value.nome}" alterada com sucesso`);
+          this.novaTurma = {};
+          this.findTurmas();
+        }
+      );
+    }
+
   }
 
   public deleteTurma(turma): void {
@@ -47,6 +63,23 @@ export class AppComponent {
         this.findTurmas();
       }
     );
+  }
+
+  public editTurma(turma): void {
+    // não podemos fazer a atribuição direta this.novaTurma = turma pois no js os parâmetros são sempre por referência
+    // dessa forma, se atribuir diretamente, ao modificar o valor no formulário, o valor da lista também vai mudar.
+    // Faça o teste!
+
+    this.novaTurma = {
+      id: turma.id,
+      nome: turma.nome,
+      dataInicio: new Date(turma.dataInicio).toISOString().substring(0, 10), // o input date deve receber uma string com o formato YYYY-MM-DD
+      local: turma.local,
+      cursoId: turma.cursoId,
+      professorId: turma.professorId
+    };
+    console.log(this.novaTurma);
+    this.cardTitle = 'Editar Turma - ' + turma.nome;
   }
 
   private findProfessores(): void {

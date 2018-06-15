@@ -9,7 +9,7 @@
 
       <div class="card ml-3">
         <div class="card-body">
-          <h5 class="card-title">Nova turma</h5>
+          <h5 class="card-title">{{ cardTitle }}</h5>
           <form (ngSubmit)="onSubmit(f)" novalidate #f="ngForm">
             <div class="form-group">
               <label for="nome">Nome</label>
@@ -25,13 +25,13 @@
             </div>
             <div class="form-group">
               <label for="curso">Curso</label>
-              <select class="form-control" id="curso" name="cursoId" [(ngModel)]="novaTurma.curso" required>
+              <select class="form-control" id="curso" name="cursoId" [(ngModel)]="novaTurma.cursoId" required>
                 <option *ngFor="let curso of cursos" [value]="curso.id">{{curso.nome}}</option>
               </select>
             </div>
             <div class="form-group">
                 <label for="professor">Professor</label>
-                <select class="form-control" id="professor" name="professorId" [(ngModel)]="novaTurma.professor" required>
+                <select class="form-control" id="professor" name="professorId" [(ngModel)]="novaTurma.professorId" required>
                   <option *ngFor="let professor of professores" [value]="professor.id">{{professor.nome}}</option>
                 </select>
               </div>
@@ -54,7 +54,8 @@
             <li>Duração: início em {{turma.dataInicio | date:'dd/MM/yyyy'}} ({{turma.curso.cargaHorariaHoras}} horas)</li>
           </ul>
           <hr class="my-4">
-          <button type="button" class="btn btn-danger btn-sm btn-block" (click)="deleteTurma(turma)">Excluir</button>
+          <button type="button" class="btn btn-info btn-sm mr-3" (click)="editTurma(turma)">Editar</button>
+          <button type="button" class="btn btn-danger btn-sm " (click)="deleteTurma(turma)">Excluir</button>
 
         </li>
       </ul>
