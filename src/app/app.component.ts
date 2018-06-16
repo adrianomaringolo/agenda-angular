@@ -8,12 +8,14 @@ import { AgendaService } from './agenda.service';
 })
 export class AppComponent {
 
+  tituloApp = 'Agenda Angular';
+
   turmas: any[];
   professores: any[];
   cursos: any[];
 
   novaTurma: any = {};
-  cardTitle: string = 'Nova turma';
+  cardTitle = 'Nova turma';
 
   constructor(private _agendaService: AgendaService) {
     this.findTurmas();
